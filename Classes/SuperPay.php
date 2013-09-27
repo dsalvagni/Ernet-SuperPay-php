@@ -135,9 +135,9 @@ class SuperPay extends SuperPayWebService {
 
         /**
          * Retorno do Gateway
-         * Código da Forma de Pagamento     : ["return"]['codigoFormaPagamento']
          * =========================================================================
          * Status da Transação              : ["return"]['statusTransacao']
+         * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
          * Cód  |  Nome                     |  Descrição                             | Tipo de Status
          *  1     Autorizado e Confirmado      Representa que a transação está paga.   Final
          *  
@@ -189,6 +189,7 @@ class SuperPay extends SuperPayWebService {
          *  31    Transação já efetuada        Transação já efetuada e efetivada com   Final
          *                                     status final.
          * =========================================================================
+         * Código da Forma de Pagamento     : ["return"]['codigoFormaPagamento']
          * Número da Transação              : ["return"]['numeroTransacao']
          * Valor                            : ["return"]['valor']
          * Valor de Desconto                : ["return"]['valorDesconto']
@@ -218,6 +219,76 @@ class SuperPay extends SuperPayWebService {
 
         $Funcao = 'consultaTransacaoEspecifica';
         
+        /**
+         * Retorno do Gateway
+         * =========================================================================
+         * Status da Transação              : ["return"]['statusTransacao']
+         * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+         * Cód  |  Nome                     |  Descrição                             | Tipo de Status
+         *  1     Autorizado e Confirmado      Representa que a transação está paga.   Final
+         *  
+         *  2     Autorizado                   Representa que a transação ainda será   Transitório
+         *                                     confirmada na operadora.
+         *
+         *  3     Não Autorizado               Representa que a transação foi negada   Final
+         *                                     pela operadora. 
+         *
+         *  5     Transação em Andamento       Representa que a transação está em      Transitório
+         *                                     andamento.
+         *
+         *  6     Boleto em Compensação        Representa que a transação ainda não    Transitório
+         *                                     está paga, boleto está em processo de
+         *                                     compensação / baixa
+         *
+         *  8     Aguardando Pagamento         Representa  que  a  transação  está     Transitório
+         *                                     no SuperPay, aguardando o pagamento 
+         *                                     ou pedidos em processo 
+         *                                     de retentativa.
+         *
+         *  9     Falha na Operadora           Representa  que  a  transação  não      Final
+         *                                     foi autorizada pela operadora e 
+         *                                     que houve um problema em 
+         *                                     seu processamento   
+         *  
+         *  15    Em Análise de Risco          Representa que a transação foi enviada  Transitório
+         *                                     para  o  sistema  de  análise  
+         *                                     de  riscos  / fraudes  e  que  o  
+         *                                     SuperPay  ainda  não obteve  a  
+         *                                     resposta de  aprovação  ou negação.
+         *
+         *  17    Recusado Análise de Risco    Representa que a transação foi  negada  Final
+         *                                     pelo sistema análise de Risco / Fraude 
+         *
+         *  18    Falha no envio para          Representa  que  por  alguma  falha o   Transitório
+         *        Análise de Risco             pedido não conseguiu ser enviado 
+         *                                     para o sistema de Risco / Fraude, 
+         *                                     porém será reenviada.
+         *        
+         *  21    Boleto Pago a menor          Representa que o boleto está pago com   Final
+         *                                     valor divergente do emitido 
+         *
+         *  22    Boleto Pago a maior          Representa que o boleto está pago com   Final
+         *                                     o valor divergente do emitido 
+         *
+         *  30    Operação em andamento        Transação em curso de pagamento         Transitório
+         *
+         *  31    Transação já efetuada        Transação já efetuada e efetivada com   Final
+         *                                     status final.
+         * =========================================================================
+         * Código da Forma de Pagamento     : ["return"]['codigoFormaPagamento']
+         * Código do Estabelecimento        : ["return"]['codigoEstabelecimento']
+         * Número da Transação              : ["return"]['numeroTransacao']
+         * Valor                            : ["return"]['valor']
+         * Valor de Desconto                : ["return"]['valorDesconto']
+         * Taxa de Embarque                 : ["return"]['taxaEmbarque']
+         * Parcelas                         : ["return"]['parcelas']
+         * URL de Pagamento                 : ["return"]['urlPagamento']
+         * Autorização                      : ["return"]['autorizacao']
+         * Código de Transação da Operadora : ["return"]['codigoTransacaoOperadora']
+         * Data de Aprovação da Operadora   : ["return"]['dataAprovacaoOperadora']
+         * Número Comprovante de Venda      : ["return"]['numeroComprovanteVenda']
+         * Mensagem de Venda                : ["return"]['numeroComprovanteVenda']
+         */
         return $this->call($Parametros, $Funcao, $this->getUrlWebService());
     }
 }
