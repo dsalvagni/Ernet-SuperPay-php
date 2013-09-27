@@ -137,6 +137,9 @@ class SuperPay extends SuperPayWebService {
          * Retorno do Gateway
          * =========================================================================
          * Status da Transação              : ["return"]['statusTransacao']
+         *                                    Status da Transação, representado por
+         *                                    um valor numérico. Verificar tabela na
+         *                                    Numérico Até 2 dígitos
          * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
          * Cód  |  Nome                     |  Descrição                             | Tipo de Status
          *  1     Autorizado e Confirmado      Representa que a transação está paga.   Final
@@ -190,16 +193,66 @@ class SuperPay extends SuperPayWebService {
          *                                     status final.
          * =========================================================================
          * Código da Forma de Pagamento     : ["return"]['codigoFormaPagamento']
+         *                                    Código da forma de pagamento 
+         *                                    (enviado pelo estabelecimento na chamada).
+         *                                    Alfa Numérico 100 caracteres
+         *                                    
          * Número da Transação              : ["return"]['numeroTransacao']
+         *                                    Número da Transação 
+         *                                    (enviado pelo estabelecimento na 
+         *                                    chamada do WebService) 
+         *                                    Numérico 8 Caracteres
+         * 
          * Valor                            : ["return"]['valor']
+         *                                    Valor da transação. Será retornado
+         *                                    segundo o seguinte formato: para
+         *                                    transação de R$ 1,00, será enviado 100.
+         *                                    Numérico Até 8 dígitos
+         *                                    
          * Valor de Desconto                : ["return"]['valorDesconto']
+         *                                    Valor do desconto da transação. Será
+         *                                    retornado segundo o seguinte formato:
+         *                                    para transação de R$ 1,00, será enviado
+         *                                    100.
+         *                                    Numérico até 8 dígitos
+         *                                    
          * Taxa de Embarque                 : ["return"]['taxaEmbarque']
+         *                                    Valor da taxa de serviço/embarque da
+         *                                    transação. Será retornado
+         *                                    segundo o seguinte formato: para
+         *                                    transação de R$ 1,00, será enviado 100.
+         *                                    Numérico Até 8 dígitos
+         *                                    
          * Parcelas                         : ["return"]['parcelas']
-         * URL de Pagamento                 : ["return"]['urlPagamento']
+         *                                    Quantidade de parcelas da
+         *                                    transação
+         *                                    Numérico  Até 2 dígitos       
+         *                                                                        
+         * URL de Pagamento                 : ["return"]['urlPagamento']    
+         *                                    URL para redirecionamento do
+         *                                    cliente em caso de transações
+         *                                    Redirects. Para transações não Redirects
+         *                                    essa url será retornada em branco.
+         *                                    Alfa Numérico até 500 caracteres                                    
+         *                                    
          * Autorização                      : ["return"]['autorizacao']
+         *                                    Código de autorização da 
+         *                                    operadora/banco/intermediário financeiro
+         *                                    Numérico
+         *                                    Autorização é sempre numérica e até 20 dígitos
+         *                                    
          * Código de Transação da Operadora : ["return"]['codigoTransacaoOperadora']
+         *                                    Código da transação junto a 
+         *                                    operadora/banco/intermediário financeiro
+         *                                    Numérico  Até 20 dígitos
+         *                                    
          * Data de Aprovação da Operadora   : ["return"]['dataAprovacaoOperadora']
+         *                                    Data de aprovação na operadora  
+         *                                    Alfa Numérico até 10 caracteres
+         *                                    
          * Número Comprovante de Venda      : ["return"]['numeroComprovanteVenda']
+         *                                    Número do comprovante de venda  
+         *                                    Alfa Numérico até 20 caracteres
          */
         return $this->call($Parametros, $Funcao, $this->getUrlWebService());
     }
@@ -223,6 +276,9 @@ class SuperPay extends SuperPayWebService {
          * Retorno do Gateway
          * =========================================================================
          * Status da Transação              : ["return"]['statusTransacao']
+         *                                    Status da Transação, representado por
+         *                                    um valor numérico. Verificar tabela na
+         *                                    Numérico Até 2 dígitos
          * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
          * Cód  |  Nome                     |  Descrição                             | Tipo de Status
          *  1     Autorizado e Confirmado      Representa que a transação está paga.   Final
@@ -275,19 +331,77 @@ class SuperPay extends SuperPayWebService {
          *  31    Transação já efetuada        Transação já efetuada e efetivada com   Final
          *                                     status final.
          * =========================================================================
-         * Código da Forma de Pagamento     : ["return"]['codigoFormaPagamento']
          * Código do Estabelecimento        : ["return"]['codigoEstabelecimento']
+         *                                    Valor fornecido pela ERNET para identificar 
+         *                                    o estabelecimento junto ao SuperPay
+         *                                    Código fornecido pela ERNET
+         *                                    
+         * Código da Forma de Pagamento     : ["return"]['codigoFormaPagamento']
+         *                                    Código da forma de pagamento 
+         *                                    (enviado pelo estabelecimento na chamada).
+         *                                    Alfa Numérico 100 caracteres
+         *                                    
          * Número da Transação              : ["return"]['numeroTransacao']
+         *                                    Número da Transação 
+         *                                    (enviado pelo estabelecimento na 
+         *                                    chamada do WebService) 
+         *                                    Numérico 8 Caracteres
+         * 
          * Valor                            : ["return"]['valor']
+         *                                    Valor da transação. Será retornado
+         *                                    segundo o seguinte formato: para
+         *                                    transação de R$ 1,00, será enviado 100.
+         *                                    Numérico Até 8 dígitos
+         *                                    
          * Valor de Desconto                : ["return"]['valorDesconto']
+         *                                    Valor do desconto da transação. Será
+         *                                    retornado segundo o seguinte formato:
+         *                                    para transação de R$ 1,00, será enviado
+         *                                    100.
+         *                                    Numérico até 8 dígitos
+         *                                    
          * Taxa de Embarque                 : ["return"]['taxaEmbarque']
+         *                                    Valor da taxa de serviço/embarque da
+         *                                    transação. Será retornado
+         *                                    segundo o seguinte formato: para
+         *                                    transação de R$ 1,00, será enviado 100.
+         *                                    Numérico Até 8 dígitos
+         *                                    
          * Parcelas                         : ["return"]['parcelas']
-         * URL de Pagamento                 : ["return"]['urlPagamento']
+         *                                    Quantidade de parcelas da
+         *                                    transação
+         *                                    Numérico  Até 2 dígitos       
+         *                                                                        
+         * URL de Pagamento                 : ["return"]['urlPagamento']    
+         *                                    URL para redirecionamento do
+         *                                    cliente em caso de transações
+         *                                    Redirects. Para transações não Redirects
+         *                                    essa url será retornada em branco.
+         *                                    Alfa Numérico até 500 caracteres                                    
+         *                                    
          * Autorização                      : ["return"]['autorizacao']
+         *                                    Código de autorização da 
+         *                                    operadora/banco/intermediário financeiro
+         *                                    Numérico
+         *                                    Autorização é sempre numérica e até 20 dígitos
+         *                                    
          * Código de Transação da Operadora : ["return"]['codigoTransacaoOperadora']
+         *                                    Código da transação junto a 
+         *                                    operadora/banco/intermediário financeiro
+         *                                    Numérico  Até 20 dígitos
+         *                                    
          * Data de Aprovação da Operadora   : ["return"]['dataAprovacaoOperadora']
+         *                                    Data de aprovação na operadora  
+         *                                    Alfa Numérico até 10 caracteres
+         *                                    
          * Número Comprovante de Venda      : ["return"]['numeroComprovanteVenda']
-         * Mensagem de Venda                : ["return"]['numeroComprovanteVenda']
+         *                                    Número do comprovante de venda  
+         *                                    Alfa Numérico até 20 caracteres
+         *                                    
+         * Mensagem de Venda                : ["return"]['mensagemVenda']
+         *                                    Mensagem de retorno da operadora
+         *                                    (poderá ser apresentado para o cliente)
+         *                                    Alfa Numérico até 50 caracteres
          */
         return $this->call($Parametros, $Funcao, $this->getUrlWebService());
     }
