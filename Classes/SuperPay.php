@@ -5,11 +5,16 @@
  */
 class SuperPay extends SuperPayWebService {
     
-    private $URLWebService             = "http://homologacao2.superpay.com.br/checkout/servicosPagamentoCompletoWS.Services?wsdl";
+    private $URLWebService;
     private $CodigoEstabelecimento     = "1306335906641";
     private $UrlCampainha              = "http://localhost/IntegracaoSuperPay/Exemplos/UrlCampainha.php";
     private $UsuarioSuperPay           = "TESTE";
     private $SenhaSuperPay             = "TESTE";
+
+    private $enderecoNaoPago           = "http://localhost/NaoPago";
+    private $enderecoPago              = "http://localhost/Pago";
+
+    private $Debug                     = false;
     
     /**
      * GETTERS AND SETTERS
@@ -28,6 +33,28 @@ class SuperPay extends SuperPayWebService {
 
     public function getSenha() { return $this->SenhaSuperPay; }
     public function setSenha($valor) {  $this->SenhaSuperPay = $valor; return $this;   }
+
+    public function setEnderecoNaoPago($valor) { return $this->enderecoNaoPago = $valor; }
+    public function getEnderecoNaoPago() { return $this->enderecoNaoPago; }
+
+    public function setEnderecoPago($valor) { return $this->enderecoPago = $valor; }
+    public function getEnderecoPago() { return $this->enderecoPago; }
+
+    function __construct($debug=0, $sandbox=true)
+    {
+        $this->debug = $debug;
+        if($sandbox)
+        {
+            $this->URLWebService         = "http://homologacao2.superpay.com.br/superpay/servicosPagamentoCompletoWS.Services?wsdl";
+            $this->CodigoEstabelecimento = "1306335906641";
+        }
+        else 
+        {
+            $this->URLWebService         = "https://superpay2.superpay.com.br/checkout/servicosPagamentoCompletoWS.Services?wsdl";
+            $this->CodigoEstabelecimento = "1306335906641";
+        }
+            
+    }
 
     /**
      * METHODS
@@ -59,6 +86,9 @@ class SuperPay extends SuperPayWebService {
                                     'valorDesconto'                      => $DadosPedido->getValorDesconto(),
                                     'taxaEmbarque'                       => $DadosPedido->getTaxaEmbarque(),
                                     'parcelas'                           => $DadosPedido->getParcelas(),
+                                    'urlRedirecionamentoNaoPago'         => $this->getEnderecoNaoPago(),
+                                    'urlRedirecionamentoPago'            => $this->getEnderecoPago(),
+
 
                                     'itensDoPedido'                      => array(
                                                                                 array(
@@ -129,6 +159,18 @@ class SuperPay extends SuperPayWebService {
                             'usuario'   => $this->getUsuario(), 
                             'senha'     => $this->getSenha()
                             );
+
+
+
+        if($this->debug==1)
+        {
+            echo "<pre>";
+                print_r($Parametros);
+            echo "</pre>";    
+        }
+
+        array_walk_recursive($Parametros, 'utf8_decode');
+        
 
         $Funcao = 'pagamentoTransacaoCompleta';
         
