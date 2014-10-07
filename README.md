@@ -6,7 +6,5 @@ Tenho utilizado o NuSoap para fazer a comunicação com o WebService porque este
 Caso esta biblioteca seja utilizada em algum framework (ZF, Yii, Cake, etc.) deve-se dar preferência para os 
 componentes de comunicação SOAP utilizados pelo framework. 
 
-[-Em Desenvolvimento-]
-
-O sistema da [SuperPay](http://superpay.locaweb.com.br/) é horrível, não vale a pena a integração. 
-Não vou manter este projeto.
+Não sei se voltarei a desenvolver isso.
+Caso alguem tenha interesse, favor entrar em contato por danielsalvagni@gmail.com
